@@ -1,0 +1,5 @@
+ng new airbus-app-ngrx
+npm install json-server concurrently
+ng generate component components/navbar
+ng generate component components/aircrafts
+ng g s ./services/aircrafts
