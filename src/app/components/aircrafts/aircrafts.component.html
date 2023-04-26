@@ -1,18 +1,6 @@
 <div>
-  <ul class="navbar navabar-nav">
-    <li>
-      <button class="btn btn-outline-info m-2" (click)="getAllAircrafts()">
-        Aircrafts</button
-      ><button
-        class="btn btn-outline-info m-2"
-        (click)="getDesignAircrafts()"
-      ></button
-      ><button
-        class="btn btn-outline-info m-2"
-        (click)="getDevelopmentAircrafts()"
-      ></button>
-    </li>
-  </ul>
+  <app-aircraftsnavbar></app-aircraftsnavbar>
+
   <ng-container *ngIf="error">
     <div class="p-2 text-danger">{{ error }}</div>
   </ng-container>

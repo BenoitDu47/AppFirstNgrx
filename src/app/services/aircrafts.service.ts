@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Host, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Aircraft } from '../model/aircraft.model';
 import { environment } from 'src/environments/environment';
@@ -13,19 +13,19 @@ export class AircraftsService {
 
 
   public getAircrafts(): Observable<Aircraft[]> {
-    return this.http.get<Aircraft[]>(Host + "aircrafts");
+    return this.http.get<Aircraft[]>("http://localhost:3000" + "/aircrafts");
   }
 
   public getDesignAircrafts(): Observable<Aircraft[]> {
-    return this.http.get<Aircraft[]>(environment.host + "/aircrafts?design=true");
+    return this.http.get<Aircraft[]>("http://localhost:3000" + "/aircrafts?design=true");
   }
 
   public getDevelopmentAircrafts(): Observable<Aircraft[]> {
-    return this.http.get<Aircraft[]>(environment.host + "/aircrafts?development=true");
+    return this.http.get<Aircraft[]>("http://localhost:3000" + "/aircrafts?development=true");
   }
 
   public getAircraftByMsn(id: number): Observable<Aircraft> {
-    return this.http.get<Aircraft>(environment.host + "aircrafts/" + id);
+    return this.http.get<Aircraft>("http://localhost:3000" + "/aircrafts/" + id);
   }
 
 
