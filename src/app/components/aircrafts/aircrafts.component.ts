@@ -1,42 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Aircraft } from 'src/app/model/aircraft.model';
-import { AircraftsService } from 'src/app/services/aircrafts.service';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { AircraftsState, AircraftsStateEnum } from 'src/app/ngrx/aircrafts.state';
 
 @Component({
   selector: 'app-aircrafts',
   templateUrl: './aircrafts.component.html',
   styleUrls: ['./aircrafts.component.css']
 })
-
 export class AircraftsComponent implements OnInit {
-  aircrafts: Aircraft[] | null = null;
-  error: null | undefined;
-
-  constructor(private aircraftsService: AircraftsService) { }
-
-  ngOnInit(): void {
-
+  aircraftsState$:Observable<AircraftsState> | null = null; 
+  readonly aircraftsStateEnum = AircraftsStateEnum;
+  countAlertAircfrats$ : Observable<number> | undefined;
+  
+  constructor(private store:Store<any>) {  
   }
 
-  getAllAircrafts() {
-    this.aircraftsService.getAircrafts().subscribe({
-      next: (data) => this.aircrafts = data,
-      error: (err) => this.error = err.message,
-      complete: () => this.error = null
-    })
-  }
-  getDesignAircrafts() {
-    this.aircraftsService.getDesignAircrafts().subscribe({
-      next: (data) => this.aircrafts = data,
-      error: (err) => this.error = err.message,
-      complete: () => this.error = null
-    })
-  }
-  getDevelopmentAircrafts() {
-    this.aircraftsService.getDevelopmentAircrafts().subscribe({
-      next: (data) => this.aircrafts = data,
-      error: (err) => this.error = err.message,
-      complete: () => this.error = null
-    })
+  ngOnInit(): void {  //notre composant doit observer le state dans le store
+    this.aircraftsState$ = this.store.pipe(//on écoute ce qui se passe dans le store, dès qu'on reçoit les données, on peut faire un map
+          //dit autrement : nous recevons le state dès qu'il change afin de permettre l'affichage adéquat de ses données
+          map((state)=> state.airbusState)  
+    );  
   }
 }

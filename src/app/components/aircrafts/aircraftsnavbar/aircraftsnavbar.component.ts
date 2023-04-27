@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Aircraft } from 'src/app/model/aircraft.model';
+import { GetAllAircraftsAction } from 'src/app/ngrx/aircrafts.action';
 import { AircraftsService } from 'src/app/services/aircrafts.service';
 
 @Component({
@@ -8,34 +10,20 @@ import { AircraftsService } from 'src/app/services/aircrafts.service';
   styleUrls: ['./aircraftsnavbar.component.css']
 })
 export class AircraftsnavbarComponent  implements OnInit {
-  aircrafts: Aircraft[] | null = null;
-  error: null | undefined;
 
-  constructor(private aircraftsService: AircraftsService) { }
+  constructor(private store:Store<any>) { }
 
   ngOnInit(): void {
 
   }
 
   getAllAircrafts() {
-    this.aircraftsService.getAircrafts().subscribe({
-      next: (data) => this.aircrafts = data,
-      error: (err) => this.error = err.message,
-      complete: () => this.error = null
-    })
+    this.store.dispatch(new GetAllAircraftsAction({}));
   }
   getDesignAircrafts() {
-    this.aircraftsService.getDesignAircrafts().subscribe({
-      next: (data) => this.aircrafts = data,
-      error: (err) => this.error = err.message,
-      complete: () => this.error = null
-    })
+   
   }
   getDevelopmentAircrafts() {
-    this.aircraftsService.getDevelopmentAircrafts().subscribe({
-      next: (data) => this.aircrafts = data,
-      error: (err) => this.error = err.message,
-      complete: () => this.error = null
-    })
+   
   }
 }
